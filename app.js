@@ -10,7 +10,7 @@ const businessRouter = require("./routes/v1/business.route");
 const slideRouter = require("./routes/v1/slide.route");
 // const superAdminRouter = require("./routes/v1/admin.route");
 const app = express();
-
+// 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
