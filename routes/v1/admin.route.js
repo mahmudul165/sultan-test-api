@@ -1,12 +1,12 @@
-// const express = require("express");
-// const router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-// const  {login } = require("../../controllers/admin.controller");
+const  {login } = require("../../controllers/admin.controller");
  
-// // Login route
-// router.post('/',login);
+// Login route
+router.post('/',login);
 
-// module.exports = router;
+module.exports = router;
 
 
 
