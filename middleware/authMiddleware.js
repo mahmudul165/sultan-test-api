@@ -6,31 +6,31 @@
 
  
 // start
-// require("dotenv").config();
-// const jwt = require('jsonwebtoken');
+require("dotenv").config();
+const jwt = require('jsonwebtoken');
 
-// // Secret key for JWT
-// const JWT_SECRET = process.env.JWT_SECRET;
+// Secret key for JWT
+const JWT_SECRET = process.env.JWT_SECRET;
 
-// module.exports = (req, res, next) => {
-//   const token = req.headers.authorization;
+module.exports = (req, res, next) => {
+  const token = req.headers.authorization;
 
-//   if (!token) {
-//     return res.status(401).json({ message: 'No token provided' });
-//   }
+  if (!token) {
+    return res.status(401).json({ message: 'No token provided' });
+  }
 
-//   try {
-//     // Verify the token
-//     const decoded = jwt.verify(token, JWT_SECRET);
+  try {
+    // Verify the token
+    const decoded = jwt.verify(token, JWT_SECRET);
 
-//     // Add the user ID to the request object
-//     req.userId = decoded.userId;
+    // Add the user ID to the request object
+    req.userId = decoded.userId;
 
-//     next();
-//   } catch (err) {
-//     res.status(401).json({ message: 'Invalid token' });
-//   }
-// };
+    next();
+  } catch (err) {
+    res.status(401).json({ message: 'Invalid token' });
+  }
+};
 
 
 
