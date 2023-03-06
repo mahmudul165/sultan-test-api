@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-
+const authMiddleware = require('../../middleware/authMiddleware');
 const {
   getPosts,
   createPost,
@@ -11,8 +11,8 @@ const {
 
 router.get("/", getPosts);
 router.get("/:id", getPostById);
-router.delete("/:id", deletePost);
-router.patch("/:id", updatePost);
-router.post("/", createPost);
+router.delete("/:id",authMiddleware, deletePost);
+router.patch("/:id",authMiddleware, updatePost);
+router.post("/",authMiddleware, createPost);
 
 module.exports = router;

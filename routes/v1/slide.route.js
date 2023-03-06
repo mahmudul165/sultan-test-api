@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-// const authMiddleware = require('../../middleware/authMiddleware');
+const authMiddleware = require('../../middleware/authMiddleware');
 const {
   getAllSlides,
   createSlide,
@@ -11,8 +11,8 @@ const {
 
 router.get("/",getAllSlides);
 router.get("/:id", getSlideById);
-router.delete("/:id" , deleteSlide);
-router.patch("/:id" ,  updateSlide);
-router.post("/" ,  createSlide);
+router.delete("/:id" ,authMiddleware, deleteSlide);
+router.patch("/:id" , authMiddleware, updateSlide);
+router.post("/" , authMiddleware, createSlide);
 
 module.exports = router;
