@@ -116,10 +116,18 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ userId: superadmin._id }, JWT_SECRET, {
       expiresIn,
     });
-    const name = superadmin.username;
+ 
+   const name = superadmin.username;
+     //start  try
+  
+    // Set JWT token as a cookie in the response header
+    res.cookie('jwt', token, { httpOnly: true,  secure: true, maxAge: 3600000 });
+// end try
     res.json({ status: "success", message: "successfully login", name, token });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+

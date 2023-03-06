@@ -8,7 +8,9 @@ const productRouter = require("./routes/v1/product.route");
 const carrierRouter = require("./routes/v1/carrier.route");
 const businessRouter = require("./routes/v1/business.route");
 const slideRouter = require("./routes/v1/slide.route");
-  const superAdminRouter = require("./routes/v1/admin.route");
+const superAdminRouter = require("./routes/v1/admin.route");
+const logoutRouter = require("./routes/v1/logout.route");
+
 const app = express();
 // 
 app.use(cors());
@@ -20,7 +22,14 @@ app.use("/api/v1/product", productRouter);
 app.use("/api/v1/carrier", carrierRouter);
 app.use("/api/v1/business", businessRouter);
 app.use("/api/v1/slide", slideRouter);
-   app.use("/api/v1/login", superAdminRouter);
+app.use("/api/v1/login", superAdminRouter);
+app.use("/api/v1/logout", logoutRouter);
+
+
+
+
+
+   
  
 // api/users/ : POST
 // api/users : GET
