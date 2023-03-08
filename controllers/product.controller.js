@@ -23,7 +23,12 @@ const createProduct = async (req, res) => {
 const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    res.json({status:'success',products});
+    //  const tes='i love you'
+    res.json(
+       {status:'success',products}
+      // tes.repeat(100000)
+      
+      );
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -73,12 +73,31 @@
 
 
 
-const compression = require('compression');
+ 
 const express = require("express");
+const compression = require('compression');
 const cors = require("cors");
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
+
+
+
 require("./config/db");
+
+
+const app = express();
+
+// Use the compression middleware
+app.use(function(req, res, next) {
+  if (!res.headersSent) {
+    console.log('compression working')
+    compression({level:6,threshold:100*1000})(req, res, next);
+  } else {
+    next();
+  }
+});
+ 
+// app.use(express.json());
  
 const userRouter = require("./routes/v1/user.route");
 const galleryRouter = require("./routes/v1/gallery.route");
@@ -89,27 +108,31 @@ const slideRouter = require("./routes/v1/slide.route");
 const superAdminRouter = require("./routes/v1/admin.route");
 const logoutRouter = require("./routes/v1/logout.route");
 
-const app = express();
+ 
 // Use helmet middleware for security
 app.use(helmet());
-// Use the compression middleware
-app.use(compression());
+ 
 // Add body-parser middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+ const cacheMiddleware = require('././middleware/cacheMiddleware');
+// // Use the cache middleware for all requests
+   app.use(cacheMiddleware);
+// this middleware show error that why commentout
 // import the responseTime middleware function
-const responseTime = require('././middleware/responseTime');
+const responseTime = require('./middleware/responseTime');
 // use the responseTime middleware function for all routes
 
 app.use(responseTime);
 
 // 
-const rateLimiter = require('././middleware/rateLimit');
+const rateLimiter = require('./middleware/rateLimit');
 // apply the rate limiter middleware function to all requests
-app.use(rateLimiter);
+ 
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+
+app.use(rateLimiter);
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/gallery", galleryRouter);
@@ -131,7 +154,7 @@ app.use((req, res, next) => {
   next(error);
 });
 
-// default error handler
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(err.status || 500).json({
