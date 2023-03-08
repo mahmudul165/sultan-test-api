@@ -116,9 +116,7 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
- const cacheMiddleware = require('././middleware/cacheMiddleware');
-// // Use the cache middleware for all requests
-   app.use(cacheMiddleware);
+ 
 // this middleware show error that why commentout
 // import the responseTime middleware function
 const responseTime = require('./middleware/responseTime');
@@ -129,10 +127,15 @@ app.use(responseTime);
 // 
 const rateLimiter = require('./middleware/rateLimit');
 // apply the rate limiter middleware function to all requests
+
  
 app.use(cors());
 
 app.use(rateLimiter);
+
+const cacheMiddleware = require('././middleware/cacheMiddleware');
+// // Use the cache middleware for all requests
+   app.use(cacheMiddleware);
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/gallery", galleryRouter);
