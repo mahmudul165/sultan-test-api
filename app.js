@@ -1,7 +1,8 @@
+const compression = require('compression');
 const express = require("express");
 const cors = require("cors");
 require("./config/db");
-
+ 
 const userRouter = require("./routes/v1/user.route");
 const galleryRouter = require("./routes/v1/gallery.route");
 const productRouter = require("./routes/v1/product.route");
@@ -12,10 +13,22 @@ const superAdminRouter = require("./routes/v1/admin.route");
 const logoutRouter = require("./routes/v1/logout.route");
 
 const app = express();
+// Use the compression middleware
+app.use(compression());
+// import the responseTime middleware function
+const responseTime = require('././middleware/responseTime');
+// use the responseTime middleware function for all routes
+app.use(responseTime);
 // 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+ 
+
+
+
+
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/gallery", galleryRouter);
 app.use("/api/v1/product", productRouter);
@@ -50,6 +63,7 @@ app.use((req, res, next) => {
 
 //handling server error
 app.use((err, req, res, next) => {
+  console.error(err.stack);
   res.status(500).json({
     message: "something broke",
   });
