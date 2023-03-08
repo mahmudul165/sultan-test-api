@@ -1,6 +1,83 @@
+// const compression = require('compression');
+// const express = require("express");
+// const cors = require("cors");
+// require("./config/db");
+ 
+// const userRouter = require("./routes/v1/user.route");
+// const galleryRouter = require("./routes/v1/gallery.route");
+// const productRouter = require("./routes/v1/product.route");
+// const carrierRouter = require("./routes/v1/carrier.route");
+// const businessRouter = require("./routes/v1/business.route");
+// const slideRouter = require("./routes/v1/slide.route");
+// const superAdminRouter = require("./routes/v1/admin.route");
+// const logoutRouter = require("./routes/v1/logout.route");
+
+// const app = express();
+// // Use the compression middleware
+// app.use(compression());
+// // import the responseTime middleware function
+// const responseTime = require('././middleware/responseTime');
+// // use the responseTime middleware function for all routes
+// app.use(responseTime);
+// // 
+// app.use(cors());
+// app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+
+ 
+
+
+
+
+// app.use("/api/v1/users", userRouter);
+// app.use("/api/v1/gallery", galleryRouter);
+// app.use("/api/v1/product", productRouter);
+// app.use("/api/v1/carrier", carrierRouter);
+// app.use("/api/v1/business", businessRouter);
+// app.use("/api/v1/slide", slideRouter);
+// app.use("/api/v1/login", superAdminRouter);
+// app.use("/api/v1/logout", logoutRouter);
+
+
+
+
+
+   
+ 
+// // api/users/ : POST
+// // api/users : GET
+// // api/users/:id : GET
+// // api/users/:id : PATCH
+// // api/users/:id : DELETE
+
+// app.get("/", (req, res) => {
+//   res.sendFile(__dirname + "/./views/index.html");
+// });
+
+// // route not found error
+// app.use((req, res, next) => {
+//   res.status(404).json({
+//     message: "route not found",
+//   });
+// });
+
+// //handling server error
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);
+//   res.status(500).json({
+//     message: "something broke",
+//   });
+// });
+
+// module.exports = app;
+
+
+
 const compression = require('compression');
 const express = require("express");
 const cors = require("cors");
+const helmet = require('helmet');
+const bodyParser = require('body-parser');
 require("./config/db");
  
 const userRouter = require("./routes/v1/user.route");
@@ -13,21 +90,26 @@ const superAdminRouter = require("./routes/v1/admin.route");
 const logoutRouter = require("./routes/v1/logout.route");
 
 const app = express();
+// Use helmet middleware for security
+app.use(helmet());
 // Use the compression middleware
 app.use(compression());
+// Add body-parser middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 // import the responseTime middleware function
 const responseTime = require('././middleware/responseTime');
 // use the responseTime middleware function for all routes
+
 app.use(responseTime);
+
 // 
+const rateLimiter = require('././middleware/rateLimit');
+// apply the rate limiter middleware function to all requests
+app.use(rateLimiter);
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
- 
-
-
-
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/gallery", galleryRouter);
@@ -38,34 +120,22 @@ app.use("/api/v1/slide", slideRouter);
 app.use("/api/v1/login", superAdminRouter);
 app.use("/api/v1/logout", logoutRouter);
 
-
-
-
-
-   
- 
-// api/users/ : POST
-// api/users : GET
-// api/users/:id : GET
-// api/users/:id : PATCH
-// api/users/:id : DELETE
-
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/./views/index.html");
 });
 
 // route not found error
 app.use((req, res, next) => {
-  res.status(404).json({
-    message: "route not found",
-  });
+  const error = new Error("Route not found");
+  error.status = 404;
+  next(error);
 });
 
-//handling server error
+// default error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({
-    message: "something broke",
+  res.status(err.status || 500).json({
+    message: err.message || "Something broke",
   });
 });
 
