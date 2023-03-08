@@ -121,7 +121,6 @@ app.use(bodyParser.json());
 // import the responseTime middleware function
 const responseTime = require('./middleware/responseTime');
 // use the responseTime middleware function for all routes
-
 app.use(responseTime);
 
 // 
