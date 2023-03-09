@@ -130,4 +130,58 @@ exports.login = async (req, res) => {
   }
 };
 
+// READ all posts
+exports.getAlluser = async (req, res) => {
+  try {
+    const users = await Superadmin.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
+
+// READ one post by ID
+exports.getUserById = async (req, res) => {
+  try {
+    const post = await Superadmin.findById(req.params.id);
+    if (post == null) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+    res.json(post);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// UPDATE one post by ID
+exports.updateUser = async (req, res) => {
+  try {
+    const post = await Superadmin.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (post == null) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+    res.json(post);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+// DELETE one post by ID
+exports.deleteUser = async (req, res) => {
+  try {
+    const post = await Superadmin.findByIdAndDelete(req.params.id);
+    if (post == null) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+    res.json(post);
+  } catch (err) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+
+
+
 
