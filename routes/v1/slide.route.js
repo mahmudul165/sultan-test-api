@@ -11,8 +11,8 @@ const {
 
 router.get("/",getAllSlides);
 router.get("/:id", getSlideById);
-router.delete("/:id" ,authMiddleware, deleteSlide);
-router.patch("/:id" , authMiddleware, updateSlide);
-router.post("/" , authMiddleware, createSlide);
+router.delete("/:id" , deleteSlide);
+router.patch("/:id" , updateSlide);
+router.post("/" ,  createSlide);
 
 module.exports = router;

@@ -11,8 +11,8 @@ const {
 
 router.get("/", getProducts);
 router.get("/:id", getProduct);
-router.delete("/:id",authMiddleware, deleteProduct);
-router.patch("/:id", authMiddleware,updateProduct);
-router.post("/",authMiddleware, createProduct);
+router.delete("/:id", deleteProduct);
+router.patch("/:id", updateProduct);
+router.post("/", createProduct);
 
 module.exports = router;

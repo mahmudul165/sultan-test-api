@@ -11,8 +11,8 @@ const {
 
 router.get("/", getAllGallery);
 router.get("/:id", getOneGallery);
-router.delete("/:id",authMiddleware, deleteGallery);
-router.patch("/:id", authMiddleware,updateGallery);
-router.post("/",authMiddleware, createGallery);
+router.delete("/:id", deleteGallery);
+router.patch("/:id", updateGallery);
+router.post("/",createGallery);
 
 module.exports = router;

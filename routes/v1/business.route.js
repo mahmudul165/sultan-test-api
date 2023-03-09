@@ -11,8 +11,8 @@ const {
 
 router.get("/", getPosts);
 router.get("/:id", getPostById);
-router.delete("/:id",authMiddleware, deletePost);
-router.patch("/:id",authMiddleware, updatePost);
-router.post("/",authMiddleware, createPost);
+router.delete("/:id", deletePost);
+router.patch("/:id", updatePost);
+router.post("/", createPost);
 
 module.exports = router;
