@@ -5,12 +5,13 @@ const Business = require('../models/business.model');
 // CREATE a new post
 exports.createPost = async (req, res) => {
   try {
-    const post = new Business({
-      //  id: uuidv4(),
-      title: req.body.title,
-      image: req.body.image,
-      body: req.body.body
-    });
+    const post = new Business(req.body);
+    // ({  
+    //   //  id: uuidv4(),
+    //   title: req.body.title,
+    //   image: req.body.image,
+    //   body: req.body.body
+    // });
     const savedPost = await post.save();
     res.status(201).json(savedPost);
   } catch (err) {

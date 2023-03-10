@@ -106,6 +106,9 @@ const carrierRouter = require("./routes/v1/carrier.route");
 const businessRouter = require("./routes/v1/business.route");
 const slideRouter = require("./routes/v1/slide.route");
 const orderRouter = require("./routes/v1/order.route");
+const contactRouter = require("./routes/v1/contact.router");
+
+ 
 const superAdminRouter = require("./routes/v1/admin.route");
 const logoutRouter = require("./routes/v1/logout.route");
 
@@ -144,6 +147,7 @@ app.use("/api/v1/carrier", carrierRouter);
 app.use("/api/v1/business", businessRouter);
 app.use("/api/v1/slide", slideRouter);
 app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/contact", contactRouter);
 app.use("/api/v1/login", superAdminRouter);
 app.use("/api/v1/logout", logoutRouter);
 
