@@ -3,13 +3,9 @@ const Contact = require("../models/contact.model");
 // Create a new contact
 const createContact = async (req, res) => {
   try {
-    const contact = new Contact({
-      name: req.body.name,
-      email: req.body.email,
-      phone: req.body.phone,
-      message: req.body.message});    
+    const contact = new Contact(req.body);    
     console.log('contact',contact)
-     await contact.save();
+    const savedContact = await contact.save();
     res.status(201).json(savedContact);
   } catch (error) {
     res.status(400).json({ message: error.message });
