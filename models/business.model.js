@@ -20,6 +20,7 @@ const businessSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  
 });
 
 // businessSchema.plugin(autoIncrement.plugin, {
