@@ -139,8 +139,9 @@ app.use(cors());
 app.use(rateLimiter);
 
 const cacheMiddleware = require('././middleware/cacheMiddleware');
-// // Use the cache middleware for all requests
-   app.use(cacheMiddleware);
+//  Use the cache middleware for all requests
+//need to adjust fronend useQuery parameter
+  //  app.use(cacheMiddleware);
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/gallery", galleryRouter);
