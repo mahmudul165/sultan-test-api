@@ -23,7 +23,7 @@
 
 const NodeCache = require('node-cache');
 
-const cache = new NodeCache({ stdTTL: 2, checkperiod: 240 });
+const cache = new NodeCache({ stdTTL: 1, checkperiod: 240 });
 
 const cacheMiddleware = (req, res, next) => {
   try {
