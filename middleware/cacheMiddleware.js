@@ -32,7 +32,9 @@ const cacheMiddleware = (req, res, next) => {
     if (cachedData) {
       console.log('Serving from cache...');
       res.setHeader('Cache-Control', 'public, max-age=300');
-      res.json(cachedData);
+      const data = JSON.parse(cachedData);
+      res.json( data);
+      
     } else {
       console.log('new request for get data...');
       res.sendResponse = res.send;
