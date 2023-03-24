@@ -102,6 +102,7 @@ app.use(function(req, res, next) {
 const userRouter = require("./routes/v1/user.route");
 const galleryRouter = require("./routes/v1/gallery.route");
 const productRouter = require("./routes/v1/product.route");
+const pressRouter = require("./routes/v1/press.route");
 const carrierRouter = require("./routes/v1/carrier.route");
 const businessRouter = require("./routes/v1/business.route");
 const brandRouter = require("./routes/v1/brand.route");
@@ -144,6 +145,7 @@ const cacheMiddleware = require('././middleware/cacheMiddleware');
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/gallery", galleryRouter);
 app.use("/api/v1/product", productRouter);
+app.use("/api/v1/press", pressRouter);
 app.use("/api/v1/carrier", carrierRouter);
 app.use("/api/v1/business", businessRouter);
 app.use("/api/v1/brand", brandRouter);
