@@ -30,10 +30,10 @@ const imageSchema = new mongoose.Schema({
   //   required: true,
   //   unique: true,
   // },
-  id: {
-    type: String,
-    reuire: true,
-  },
+  // id: {
+  //   type: String,
+  //   reuire: true,
+  // },
   url: {
     type: String,
     required: true,
