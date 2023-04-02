@@ -5,7 +5,7 @@ const jobPostingSchema = new mongoose.Schema({
   vacancy: { type: Number, required: true },
   location: { type: String, required: true },
   salary: { type: String, required: true },
-  dateline: { type: String, required: true },
+  deadline: { type: String, required: true },
   time: { type: String, required: true },
 });
 
