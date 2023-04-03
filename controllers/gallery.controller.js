@@ -1,5 +1,3 @@
-const { v4: uuidv4 } = require("uuid");
-
 const Gallery = require("../models/gallery.model");
 
 exports.getAllGallery = async (req, res) => {
@@ -13,19 +11,19 @@ exports.getAllGallery = async (req, res) => {
 
 exports.getOneGallery = async (req, res) => {
   try {
-    const gallery = await Gallery.findOne({ id: req.params.id });
+    const gallery = await Gallery.findById(req.params.id);
+    if (!gallery) {
+      return res.status(404).json({ message: "Gallery not found" });
+    }
     res.status(200).json(gallery);
-  } catch (error) {                                                                
+  } catch (error) {
     res.status(500).send(error.message);
   }
 };
 
 exports.createGallery = async (req, res) => {
   try {
-    // const { id, url, category } = req.body;
-    // const newGallery = new Gallery({ id, url, category });
     const newGallery = new Gallery({
-      id: uuidv4(),
       url: req.body.url,
       category: req.body.category,
     });
@@ -38,9 +36,19 @@ exports.createGallery = async (req, res) => {
 
 exports.updateGallery = async (req, res) => {
   try {
-    const user = await Gallery.findOne({ id: req.params.id });
-    gallery.url = req.body.url;
-    gallery.category = req.body.category;
+    const gallery = await Gallery.findById(req.params.id);
+    if (!gallery) {
+      return res.status(404).json({ message: "Gallery not found" });
+    }
+
+    // Only update the fields that are included in the request body
+    if (req.body.url) {
+      gallery.url = req.body.url;
+    }
+    if (req.body.category) {
+      gallery.category = req.body.category;
+    }
+
     await gallery.save();
     res.status(200).json(gallery);
   } catch (error) {
@@ -48,13 +56,16 @@ exports.updateGallery = async (req, res) => {
   }
 };
 
+
 exports.deleteGallery = async (req, res) => {
   try {
-    await Gallery.deleteOne({ id: req.params.id });
-    res.status(200).json({ message: "user is deleted" });
+    const gallery = await Gallery.findById(req.params.id);
+    if (!gallery) {
+      return res.status(404).json({ message: "Gallery not found" });
+    }
+    await Gallery.deleteOne({ _id: req.params.id });
+    res.status(200).json({ message: "Gallery deleted successfully" });
   } catch (error) {
     res.status(500).send(error.message);
   }
 };
-
-
