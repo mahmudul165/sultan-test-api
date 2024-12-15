@@ -119,11 +119,11 @@ const fs = require("fs");
 require("./config/db");
 
 // HTTPS server setup with SSL options
-const sslOptions = {
-  key: fs.readFileSync("/etc/ssl/private/your-ssl-key.key"),  // Path to your SSL private key
-  cert: fs.readFileSync("/etc/ssl/certs/your-ssl-certificate.crt"),  // Path to your SSL certificate
-  ca: fs.readFileSync("/etc/ssl/certs/your-ssl-ca-bundle.crt"),  // Path to your CA bundle if applicable
-};
+// const sslOptions = {
+//   key: fs.readFileSync("/etc/ssl/private/your-ssl-key.key"),  // Path to your SSL private key
+//   cert: fs.readFileSync("/etc/ssl/certs/your-ssl-certificate.crt"),  // Path to your SSL certificate
+//   ca: fs.readFileSync("/etc/ssl/certs/your-ssl-ca-bundle.crt"),  // Path to your CA bundle if applicable
+// };
 
 const app = express();
 
@@ -224,8 +224,8 @@ app.use((err, req, res, next) => {
 });
 
 // Create HTTPS server and listen on port 443
-https.createServer(sslOptions, app).listen(443, () => {
-  console.log("HTTPS server running on port 443");
-});
+// https.createServer(sslOptions, app).listen(443, () => {
+//   console.log("HTTPS server running on port 443");
+// });
 
 module.exports = app;
