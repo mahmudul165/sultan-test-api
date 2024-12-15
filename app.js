@@ -201,12 +201,12 @@ app.get("/", (req, res) => {
 });
 
 // Redirect HTTP to HTTPS (Port 80 -> Port 443)
-http.createServer((req, res) => {
-  res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
-  res.end();
-}).listen(80, () => {
-  console.log("HTTP server running on port 80 and redirecting to HTTPS");
-});
+// http.createServer((req, res) => {
+//   res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` });
+//   res.end();
+// }).listen(80, () => {
+//   console.log("HTTP server running on port 80 and redirecting to HTTPS");
+// });
 
 // Error handling for route not found (404)
 app.use((req, res, next) => {
