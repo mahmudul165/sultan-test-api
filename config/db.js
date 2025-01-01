@@ -1,16 +1,43 @@
+// const mongoose = require("mongoose");
+// const config = require("./config");
+// const dbURL = config.db.url;
+// mongoose
+//   .connect(dbURL)
+//   .then(() => {
+//     console.log("mongodb atlas is connected");
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//     process.exit(1);
+//   });
+
+
+
+
 const mongoose = require("mongoose");
 const config = require("./config");
+
 const dbURL = config.db.url;
 
+// Set Mongoose's strictQuery mode
+mongoose.set('strictQuery', true);
+
+// Connect to MongoDB Atlas
 mongoose
-  .connect(dbURL)
+  .connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log("mongodb atlas is connected");
+    console.log("MongoDB Atlas is connected");
   })
   .catch((error) => {
-    console.log(error);
-    process.exit(1);
+    console.error("Error connecting to MongoDB Atlas:", error);
+    process.exit(1); // Exit with failure
   });
+
+
+
+
+
+
 // const mongoose = require("mongoose");
 // const config = require("./config");
 // const dbURL = config.db.url;
